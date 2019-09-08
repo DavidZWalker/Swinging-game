@@ -5,11 +5,11 @@ using UnityEngine.Tilemaps;
 
 public class GrapplingHook : MonoBehaviour
 {
-    private CircleCollider2D circleCollider;
     public Player player;
     private Vector3 hookDirection = Vector3.zero;
     private LineRenderer line;
     private float grappleTimeHelper = 0;
+    private Rigidbody2D rigidBody;
 
     public bool isReturning;
     public bool isActive;
@@ -22,8 +22,8 @@ public class GrapplingHook : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rigidBody = GetComponent<Rigidbody2D>();
         line = GetComponent<LineRenderer>();
-        circleCollider = GetComponent<CircleCollider2D>();
         isActive = true;
         line.enabled = false;
     }
@@ -38,7 +38,7 @@ public class GrapplingHook : MonoBehaviour
         }
 
         grappleTimeHelper += Time.deltaTime;
-        if (grappleTimeHelper > maxGrappleTime)
+        if (grappleTimeHelper > maxGrappleTime && !isHooked)
         {
             isReturning = true;
             grappleTimeHelper = 0;
@@ -48,7 +48,10 @@ public class GrapplingHook : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, hookDirection, grappleSpeed);
 
         if (Input.GetMouseButtonUp(0))
+        {
+            isHooked = false;
             isReturning = true;
+        }
 
         if (isReturning)
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, grappleReturnSpeed);
@@ -67,12 +70,8 @@ public class GrapplingHook : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D col)
     {
-        if (collision.collider is TilemapCollider2D)
-        {
-            isHooked = true;
-            Debug.Log("Hooked!");
-        }
+        isHooked = true;
     }
 }
