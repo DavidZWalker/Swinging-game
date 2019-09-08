@@ -4,42 +4,42 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private bool _isGrounded;
     private Rigidbody2D _rigidBody;
-    private BoxCollider2D _collider;
 
+    public bool _isGrounded;
     public float movementSpeed = 2f;
-    public float jumpForce = 10000f;
+    public float jumpForce = 10f;
+    public LayerMask groundLayer;
 
     // Start is called before the first frame update
     void Start()
     {
         _rigidBody = gameObject.GetComponent<Rigidbody2D>();
-        _collider = gameObject.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // handle left-right movement
-        var pos = _rigidBody.position;
-        var h = Input.GetAxisRaw("Horizontal");
+        // check if player is grounded
+        _isGrounded = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.64f, transform.position.y - 0.64f),
+            new Vector2(transform.position.x + 0.64f, transform.position.y - 0.64f), 
+            groundLayer);
 
-        pos.x += h * movementSpeed * Time.deltaTime;
-        _rigidBody.MovePosition(pos);
+        // handle left-right movement
+        var h = Input.GetAxisRaw("Horizontal");
+        if (h != 0 || _rigidBody.velocity.x != 0)
+        {
+            var moveSpeed = h * movementSpeed;
+            _rigidBody.velocity = new Vector2(moveSpeed, _rigidBody.velocity.y);
+        }
 
         // handle jumping
         var space = Input.GetKey(KeyCode.Space);
         if (_isGrounded && space)
         {
+            _isGrounded = false;
             _rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
-
-        // check if player is grounded
-        var bottomCenter = new Vector2(_collider.bounds.center.x,
-            _collider.bounds.center.y - _collider.bounds.extents.y);
-        _isGrounded = Physics.Raycast(bottomCenter, Vector2.down, 0.1f, 8);
-        Debug.Log("IsGrounded = " + _isGrounded);
     }
 
     void FixedUpdate()
