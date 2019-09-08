@@ -8,6 +8,7 @@ public class GrapplingHook : MonoBehaviour
     private CircleCollider2D circleCollider;
     public Player player;
     private Vector3 hookDirection = Vector3.zero;
+    private LineRenderer line;
 
     public bool isReturning;
     public bool isActive;
@@ -19,8 +20,10 @@ public class GrapplingHook : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        line = GetComponent<LineRenderer>();
         circleCollider = GetComponent<CircleCollider2D>();
         isActive = true;
+        line.enabled = false;
     }
 
     // Update is called once per frame
@@ -41,8 +44,16 @@ public class GrapplingHook : MonoBehaviour
         if (isReturning)
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, grappleReturnSpeed);
 
+        if (isActive)
+        {
+            line.enabled = true;
+            line.SetPosition(0, player.transform.position);
+            line.SetPosition(1, transform.position);
+        }
+
         if (Vector2.Distance(transform.position, player.transform.position) < 0.5f && isReturning)
         {
+            line.enabled = false;
             Destroy(gameObject);
         }
     }
