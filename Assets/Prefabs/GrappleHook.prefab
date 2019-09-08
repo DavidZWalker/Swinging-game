@@ -110,9 +110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b41c24bf6561648b7b91ef1c072bda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   isReturning: 0
   isActive: 0
   isHooked: 0
-  grappleSpeed: 0.5
-  grappleReturnSpeed: 0.1
-  hookDistance: 10
+  grappleSpeed: 0.7
+  grappleReturnSpeed: 1

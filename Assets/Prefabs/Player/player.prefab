@@ -308,8 +308,8 @@ MonoBehaviour:
   hookPrefab: {fileID: 3119278264344790162, guid: a7aadbf672b06ac4d90a854108fbc1b5,
     type: 3}
   _isGrounded: 0
-  movementSpeed: 7
-  jumpForce: 10
+  movementSpeed: 12
+  jumpForce: 12
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
