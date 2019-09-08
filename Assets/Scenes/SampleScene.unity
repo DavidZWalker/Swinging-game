@@ -3795,27 +3795,22 @@ PrefabInstance:
     - target: {fileID: 5938751999079908385, guid: 04733ee0e7935054c8ac2f5e6fce15a0,
         type: 3}
       propertyPath: m_UseAutoMass
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5938751999079908385, guid: 04733ee0e7935054c8ac2f5e6fce15a0,
         type: 3}
       propertyPath: m_Mass
-      value: 1.6384
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 5938751999079908385, guid: 04733ee0e7935054c8ac2f5e6fce15a0,
         type: 3}
-      propertyPath: m_Constraints
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5813442579638299115, guid: 04733ee0e7935054c8ac2f5e6fce15a0,
-        type: 3}
-      propertyPath: _isGrounded
-      value: 0
+      propertyPath: m_GravityScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5813442579638299115, guid: 04733ee0e7935054c8ac2f5e6fce15a0,
         type: 3}
       propertyPath: jumpForce
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04733ee0e7935054c8ac2f5e6fce15a0, type: 3}
