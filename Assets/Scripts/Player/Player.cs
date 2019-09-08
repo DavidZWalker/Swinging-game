@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
     private Rigidbody2D _rigidBody;
     private GameObject hookObj;
     private GrapplingHook hook;
-    private DistanceJoint2D joint;
 
     public GameObject hookPrefab;
     public bool _isGrounded;
@@ -19,7 +18,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         _rigidBody = gameObject.GetComponent<Rigidbody2D>();
-        joint = GetComponent<DistanceJoint2D>();
     }
 
     // Update is called once per frame
@@ -31,7 +29,7 @@ public class Player : MonoBehaviour
         {
             hookObj = Instantiate(hookPrefab, transform.position, Quaternion.identity);
             hookObj.GetComponent<GrapplingHook>().player = this;
-        }  
+        }
     }
 
     private void DoMovement()
@@ -56,5 +54,10 @@ public class Player : MonoBehaviour
             _isGrounded = false;
             _rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
+    }
+
+    public void JoinToHookedTargetAt(Vector2 hookedLocation)
+    {
+        
     }
 }

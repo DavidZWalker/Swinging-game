@@ -14,6 +14,7 @@ public class GrapplingHook : MonoBehaviour
     public bool isReturning;
     public bool isActive;
     public bool isHooked;
+    public float grappleForce = 1f;
     public float grappleSpeed = 1f;
     public float grappleReturnSpeed = 10f;
     public float maxGrappleTime = 1f;
@@ -73,5 +74,6 @@ public class GrapplingHook : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         isHooked = true;
+        player.JoinToHookedTargetAt(transform.position);
     }
 }

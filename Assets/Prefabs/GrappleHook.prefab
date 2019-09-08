@@ -137,6 +137,7 @@ MonoBehaviour:
   isReturning: 0
   isActive: 0
   isHooked: 0
+  grappleForce: 1
   grappleSpeed: 0.7
   grappleReturnSpeed: 1
   maxGrappleTime: 0.4
