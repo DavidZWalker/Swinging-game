@@ -16,6 +16,7 @@ public class GrapplingHook : MonoBehaviour
         joint = GetComponent<DistanceJoint2D>();
         joint.enabled = false;
         lineRenderer.enabled = false;
+        lineRenderer.sortingOrder = 5;
     }
 
     // Update is called once per frame
@@ -32,11 +33,13 @@ public class GrapplingHook : MonoBehaviour
                 joint.distance = Vector2.Distance(transform.position, joint.connectedAnchor);
 
                 lineRenderer.enabled = true;
-                lineRenderer.SetPosition(0, transform.position);
-                lineRenderer.SetPosition(1, joint.connectedAnchor);
-
-                Debug.Log(hit.collider);
             }
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, joint.connectedAnchor);
         }
 
         if (Input.GetMouseButtonUp(0))
