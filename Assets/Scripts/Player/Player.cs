@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
     private Rigidbody2D _rigidBody;
+    private GameObject hookObj;
+    private GrapplingHook hook;
+    private DistanceJoint2D joint;
 
+    public GameObject hookPrefab;
     public bool _isGrounded;
     public float movementSpeed = 2f;
     public float jumpForce = 10f;
@@ -15,14 +19,26 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         _rigidBody = gameObject.GetComponent<Rigidbody2D>();
+        joint = GetComponent<DistanceJoint2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        DoMovement();
+
+        if (Input.GetMouseButtonDown(0) && hookObj == null)
+        {
+            hookObj = Instantiate(hookPrefab, transform.position, Quaternion.identity);
+            hookObj.GetComponent<GrapplingHook>().player = this;
+        }  
+    }
+
+    private void DoMovement()
+    {
         // check if player is grounded
         _isGrounded = Physics2D.OverlapArea(new Vector2(transform.position.x - 0.64f, transform.position.y - 0.64f),
-            new Vector2(transform.position.x + 0.64f, transform.position.y - 0.64f), 
+            new Vector2(transform.position.x + 0.64f, transform.position.y - 0.64f),
             groundLayer);
 
         // handle left-right movement
@@ -40,9 +56,5 @@ public class PlayerMovement : MonoBehaviour
             _isGrounded = false;
             _rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
-    }
-
-    void FixedUpdate()
-    {
     }
 }
