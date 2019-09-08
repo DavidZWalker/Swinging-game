@@ -52,6 +52,7 @@ public class GrapplingHook : MonoBehaviour
         {
             isHooked = false;
             isReturning = true;
+            player.ReleaseHook();
         }
 
         if (isReturning)

@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D _rigidBody;
     private GameObject hookObj;
     private GrapplingHook hook;
+    private DistanceJoint2D joint;
 
     public GameObject hookPrefab;
     public bool _isGrounded;
@@ -17,7 +18,9 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _rigidBody = gameObject.GetComponent<Rigidbody2D>();
+        joint = GetComponent<DistanceJoint2D>();
+        _rigidBody = GetComponent<Rigidbody2D>();
+        joint.enabled = false;
     }
 
     // Update is called once per frame
@@ -58,6 +61,12 @@ public class Player : MonoBehaviour
 
     public void JoinToHookedTargetAt(Vector2 hookedLocation)
     {
-        
+        joint.connectedAnchor = hookedLocation;
+        joint.enabled = true;
+    }
+
+    public void ReleaseHook()
+    {
+        joint.enabled = false;
     }
 }
