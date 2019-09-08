@@ -9,12 +9,14 @@ public class GrapplingHook : MonoBehaviour
     public Player player;
     private Vector3 hookDirection = Vector3.zero;
     private LineRenderer line;
+    private float grappleTimeHelper = 0;
 
     public bool isReturning;
     public bool isActive;
     public bool isHooked;
     public float grappleSpeed = 1f;
     public float grappleReturnSpeed = 10f;
+    public float maxGrappleTime = 1f;
 
 
     // Start is called before the first frame update
@@ -33,6 +35,13 @@ public class GrapplingHook : MonoBehaviour
         {
             hookDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             isReturning = false;
+        }
+
+        grappleTimeHelper += Time.deltaTime;
+        if (grappleTimeHelper > maxGrappleTime)
+        {
+            isReturning = true;
+            grappleTimeHelper = 0;
         }
 
         if (Input.GetMouseButton(0) && !isReturning && isActive)

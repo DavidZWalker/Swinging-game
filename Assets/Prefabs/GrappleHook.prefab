@@ -117,6 +117,7 @@ MonoBehaviour:
   isHooked: 0
   grappleSpeed: 0.7
   grappleReturnSpeed: 1
+  maxGrappleTime: 0.4
 --- !u!120 &-2294025025089972856
 LineRenderer:
   m_ObjectHideFlags: 0
